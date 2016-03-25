@@ -10,8 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Lib;
 
-namespace Neuron
+namespace NeuralNetwork
 {
 	/// <summary>
 	/// Description of MainForm.
@@ -31,9 +32,11 @@ namespace Neuron
 		}
 		void Button1Click(object sender, EventArgs e)
 		{
-			var X = new Vector(1,2);
+			var X = new Vector(1,2,3);
 			var W = new Vector(0.1,0.2,0.3);
-			var n = new Neuron(X,W);
+			var N = new Neuron(X,W);
+			var Y = N.Execute();
+			label1.Text = Y.ToString();
 		}
 	}
 }

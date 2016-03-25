@@ -9,7 +9,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace Neuron
+namespace NeuralNetwork
 {
 	/// <summary>
 	/// Class with program entry point.
