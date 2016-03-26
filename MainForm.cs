@@ -21,19 +21,12 @@ namespace NeuralNetwork
 	{
 		public MainForm()
 		{
-			//
-			// The InitializeComponent() call is required for Windows Forms designer support.
-			//
 			InitializeComponent();
-			
-			//
-			// TODO: Add constructor code after the InitializeComponent() call.
-			//
 		}
 		void Button1Click(object sender, EventArgs e)
 		{
-			var X = new Vector(1,2,3);
-			var W = new Vector(0.1,0.2,0.3);
+			var X = new Vector(1, 1, 1);
+			var W = new Vector(3,-2,-2);
 			var N = new Neuron(X,W);
 			var Y = N.Execute();
 			label1.Text = Y.ToString();

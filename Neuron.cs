@@ -16,7 +16,7 @@ namespace NeuralNetwork
 	/// </summary>
 	public class Neuron
 	{
-		Vector X,W;
+		Vector X, W;
 		public Neuron(Vector X, Vector W)
 		{
 			this.X = X;
@@ -24,7 +24,12 @@ namespace NeuralNetwork
 		}
 		public double Execute()
 		{
-			return X*W;
+			return Sigmoid(X * W);
+		}
+
+		double Sigmoid(double z)
+		{
+			return 1 / (1 + Math.Exp(-z));
 		}
 	}
 }
