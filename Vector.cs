@@ -35,5 +35,14 @@ namespace Lib
 				items[i] = value;
 			}
 		}
+		public override string ToString()
+		{
+			var s = "";
+			for (int i = 0; i < Length; i++)
+			{
+				s += ((i==0)?"":", ")+items[i].ToString();
+			}
+			return s;
+		}
 	}
 }
