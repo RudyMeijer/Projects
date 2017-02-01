@@ -39,15 +39,19 @@ namespace NeuralNetwork
 			int lengthX = 2;
 			int lengthY = 3;
 			int[,] a = new int[lengthX, lengthY];
+            int cnt = 0;
+            for (int x = 0; x < lengthX; x++) for (int y = 0; y < lengthY; y++) a[x, y] = ++cnt; 
 			fixed (int * p = &a[0, 0])
 			{   //
 				// Fetch by pointer.
 				//
+            int* q = &cnt;
 				{
 					byte* b = (byte*)p;
 					for (int i = 0; i < 8; i++)
 					{
 						var v = *(b++);
+						var w = *(q++);
 					}
 				}
 			}
