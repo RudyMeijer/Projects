@@ -49,33 +49,33 @@ namespace NeuralNetwork
             Application.Run(f);
         }
 
-        private static bool InsertPropEventHandler(PropertyGrid control, Action<object, PropertyValueChangedEventArgs> p_PropertyValueChanged1)
-        {
-            var bf = BindingFlags.NonPublic | BindingFlags.Instance;
-            var events = (EventHandlerList)typeof(Component)
-                 .GetProperty("Events", bf)
-                 .GetValue(control, null);
+		private static bool InsertPropEventHandler(PropertyGrid control, Action<object, PropertyValueChangedEventArgs> p_PropertyValueChanged1)
+		{
+			var bf = BindingFlags.NonPublic | BindingFlags.Instance;
+			var events = (EventHandlerList)typeof(Component)
+				 .GetProperty("Events", bf)
+				 .GetValue(control, null);
 
 
-            var head = typeof(EventHandlerList)
-                .GetField("head", bf)
-                .GetValue(events);
-            var handler = (PropertyValueChangedEventHandler)(head.GetType()
-                .GetField("handler", bf)
-                .GetValue(head));
-            //
-            // Insert handler @ top of invocation list.
-            //
-            if (handler.GetInvocationList().Count() == 1)
-            {
-                control.PropertyValueChanged -= handler;
-                control.PropertyValueChanged += P_PropertyValueChanged1;
-                control.PropertyValueChanged += handler;
-            }
-            return handler.GetInvocationList().Count() == 2;
-        }
+			var head = typeof(EventHandlerList)
+				.GetField("head", bf)
+				.GetValue(events);
+			var handler = (PropertyValueChangedEventHandler)(head.GetType()
+				.GetField("handler", bf)
+				.GetValue(head));
+			//
+			// Insert handler @ top of invocation list.
+			//
+			if (handler.GetInvocationList().Count() == 1)
+			{
+				control.PropertyValueChanged -= handler;
+				control.PropertyValueChanged += new PropertyValueChangedEventHandler(p_PropertyValueChanged1);
+				control.PropertyValueChanged += handler;
+			}
+			return handler.GetInvocationList().Count() == 2;
+		}
 
-        private static void P_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
+		private static void P_PropertyValueChanged(object s, PropertyValueChangedEventArgs e)
         {
             Console.WriteLine($"Property {e.ChangedItem.Label} changed from {e.OldValue} to {e.ChangedItem.Value}.");
         }
@@ -104,7 +104,7 @@ namespace NeuralNetwork
             if (events[key].GetInvocationList().Count() == 1)
             {
                 control.Click -= handlers;
-                control.Click += B_Click1;
+                control.Click += new EventHandler(b_Click1);
                 control.Click += handlers;
             }
             return handlers != null && handlers.GetInvocationList().Any();
